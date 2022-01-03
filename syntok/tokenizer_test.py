@@ -69,9 +69,9 @@ class TestTokenizer(TestCase):
         self.assertListEqual(s(self.tokenizer.split("ab_cd")), ["ab", "_", "cd"])
 
     def test_emit_zero_width_space(self):
-        self.assertListEqual(s(self.tokenizer.split("zero\u200Bwidth\u200Cnon-joiner")), ["zero", "width", "non", "joiner"])
+        self.assertListEqual(s(self.tokenizer.split("zero\u200Bwidth\u200Cnon-joiner\ufe0fshade\ufeffshade")), ["zero", "width", "non", "joiner", "shade", "shade"])
         self.tokenizer = Tokenizer(True)
-        self.assertListEqual(s(self.tokenizer.split("zero\u200Bwidth\u200Cnon-joiner")), ["zero", "\u200B", "width", "\u200C", "non", "-", "joiner"])
+        self.assertListEqual(s(self.tokenizer.split("zero\u200Bwidth\u200Cnon-joiner\ufe0fshade\ufeffshade")), ["zero", "\u200B", "width", "\u200C", "non", "-", "joiner", "\ufe0f", "shade", "\ufeff", "shade"])
 
     def test_spacing_prefix(self):
         text = " Hi man,  spaces !! "
